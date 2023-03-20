@@ -8,12 +8,18 @@ extern "C"
 }
 %}
 
+%x COMMENT
+
 digit       ([0-9])
 posint      ({digit}+)
 blank_chars ([ \f\r\t\v]+)
 expressions ([-*+/()])
 
 %%
+
+\/\/            { BEGIN COMMENT; }
+<COMMENT>[^\n]* { ; }
+<COMMENT>\n     { BEGIN 0; }
 
 {posint}        { yylval = atoi(yytext); return NUM_T; }
 {expressions}   { return yytext[0]; }
