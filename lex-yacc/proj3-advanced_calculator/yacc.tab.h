@@ -40,7 +40,8 @@
       know about them.  */
    enum yytokentype {
      NUM_T = 258,
-     EQUAL_T = 259
+     EQUAL_T = 259,
+     UMINUS = 260
    };
 #endif
 

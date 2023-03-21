@@ -14,6 +14,7 @@ extern "C"
 
 %left '+' '-'
 %left '*' '/'
+%nonassoc UMINUS
 
 
 %%
@@ -27,12 +28,13 @@ func:
     ;
 
 expr:
-      NUM_T             { $$ = $1; }
-    | expr '+' expr     { $$ = $1 + $3; }
-    | expr '-' expr     { $$ = $1 - $3; }
-    | expr '*' expr     { $$ = $1 * $3; }
-    | expr '/' expr     { $$ = $1 / $3; }
-    | '(' expr ')'      { $$ = $2}
+      NUM_T                 { $$ = $1; }
+    | expr '+' expr         { $$ = $1 + $3; }
+    | expr '-' expr         { $$ = $1 - $3; }
+    | expr '*' expr         { $$ = $1 * $3; }
+    | expr '/' expr         { $$ = $1 / $3; }
+    | '-' expr %prec UMINUS { $$ = -$2; }
+    | '(' expr ')'          { $$ = $2; }
     ;
 
 %%
